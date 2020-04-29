@@ -1,0 +1,12 @@
+server:
+  port: 8771
+
+#\u6307\u5B9A\u6CE8\u518C\u4E2D\u5FC3\u5730\u5740
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+spring:
+  application:
+    name: product-server
