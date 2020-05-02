@@ -1,7 +1,10 @@
 package com.demo.order.service.impl;
 
 import com.demo.order.domain.ProductOrder;
+import com.demo.order.service.ProductClient;
 import com.demo.order.service.ProductOrderService;
+import com.demo.order.util.JsonUtils;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.netflix.discovery.converters.Auto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -29,23 +32,34 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Autowired
     private LoadBalancerClient loadBalancerClient;
 
+    @Autowired
+    private ProductClient productClient;
+
     @Override
     public ProductOrder save(int userId, int productId) {
+
+        //方式一 使用Ribbon的RestTemplate方式
         //Map<String, Object> map = restTemplate.getForObject("http://product-server/api/v1/product/find?id="+productId, Map.class);
 
-        ServiceInstance instance = loadBalancerClient.choose("product-server");
+        //方式二 使用Ribbon的LoadBalancerClient方式
+        /*ServiceInstance instance = loadBalancerClient.choose("product-server");
         String url = String.format("http://%s:%s/api/v1/product/find?id=%s", instance.getHost(), instance.getPort(), productId);
         Map<String, Object> map = new RestTemplate().getForObject(url, Map.class);
 
-        System.out.println(map);
+        System.out.println(map);*/
+
+        //方式三 使用Feign
+        String response = productClient.findById(1);
+        JsonNode jsonNode = JsonUtils.str2JsonNode(response);
         ProductOrder productOrder = new ProductOrder();
         productOrder.setCreateTime(new Date());
-        productOrder.setPrice(Integer.parseInt(map.get("price").toString()));
+        productOrder.setPrice(Integer.parseInt(jsonNode.get("price").toString()));
         productOrder.setTradeNo(UUID.randomUUID().toString());
         productOrder.setUserId(userId);
         productOrder.setUserName("zly"+userId);
-        productOrder.setProductName(map.get("name").toString());
-        productOrder.setRemark(map.get("remark").toString());
+        productOrder.setProductName(jsonNode.get("name").toString());
+        productOrder.setRemark(jsonNode.get("remark").toString());
+
         return productOrder;
     }
 }
