@@ -12,6 +12,14 @@ spring:
     name: order-server
 
 #自定义负载均衡策略
-product-server:
-  ribbon:
-    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+#product-server:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+#配置feign超时时间,如果不配置,则会优先使用hystix的默认时间(1s),而不是feign的默认超时时间(6s)
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 2000
+        readTimeout: 3000

@@ -1,7 +1,9 @@
 package com.demo.product.service.impl;
 
 import com.demo.product.domain.Product;
+import com.demo.product.handle.ProductHandle;
 import com.demo.product.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -15,6 +17,9 @@ import java.util.*;
  **/
 @Service
 public class ProductServiceImpl implements ProductService {
+
+    @Autowired
+    private ProductHandle productHandle;
 
     private static Map<Integer, Product> productMap = new HashMap<>();
 
