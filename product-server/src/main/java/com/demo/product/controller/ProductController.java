@@ -36,11 +36,11 @@ public class ProductController {
     @GetMapping("find")
     @ResponseBody
     public Object findById(int id){
-        try {
+        /*try {
             TimeUnit.SECONDS.sleep(2);
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
         Product result = productService.findById(id);
         result.setRemark("");
         result.setRemark("get result from :" + port);

@@ -6,6 +6,7 @@ import com.demo.order.service.ProductOrderService;
 import com.demo.order.util.JsonUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.netflix.discovery.converters.Auto;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
@@ -50,16 +51,17 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
         //方式三 使用Feign
         String response = productClient.findById(1);
-        JsonNode jsonNode = JsonUtils.str2JsonNode(response);
         ProductOrder productOrder = new ProductOrder();
-        productOrder.setCreateTime(new Date());
-        productOrder.setPrice(Integer.parseInt(jsonNode.get("price").toString()));
-        productOrder.setTradeNo(UUID.randomUUID().toString());
-        productOrder.setUserId(userId);
-        productOrder.setUserName("zly"+userId);
-        productOrder.setProductName(jsonNode.get("name").toString());
-        productOrder.setRemark(jsonNode.get("remark").toString());
-
+        if(StringUtils.isNotBlank(response)){
+            JsonNode jsonNode = JsonUtils.str2JsonNode(response);
+            productOrder.setCreateTime(new Date());
+            productOrder.setPrice(Integer.parseInt(jsonNode.get("price").toString()));
+            productOrder.setTradeNo(UUID.randomUUID().toString());
+            productOrder.setUserId(userId);
+            productOrder.setUserName("zly"+userId);
+            productOrder.setProductName(jsonNode.get("name").toString());
+            productOrder.setRemark(jsonNode.get("remark").toString());
+        }
         return productOrder;
     }
 }

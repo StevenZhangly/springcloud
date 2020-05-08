@@ -1,5 +1,6 @@
 package com.demo.order.service;
 
+import com.demo.order.fallback.ProductFallBack;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -7,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * @author Administrator
  */
-@FeignClient(name = "product-server")
+@FeignClient(name = "product-server", fallback = ProductFallBack.class)
 public interface ProductClient {
 
     /**
