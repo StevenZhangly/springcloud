@@ -50,7 +50,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         System.out.println(map);*/
 
         //方式三 使用Feign
-        String response = productClient.findById(1);
+        String response = productClient.findById(productId);
         ProductOrder productOrder = new ProductOrder();
         if(StringUtils.isNotBlank(response)){
             JsonNode jsonNode = JsonUtils.str2JsonNode(response);

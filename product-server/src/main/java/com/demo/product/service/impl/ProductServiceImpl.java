@@ -40,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(int id) {
+        System.out.println("查询商品:"+id+"的信息");
         return productMap.get(id);
     }
 }

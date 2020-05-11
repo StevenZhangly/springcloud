@@ -1,7 +1,7 @@
 package com.demo.order.controller;
 
+import com.demo.order.domain.ProductOrder;
 import com.demo.order.service.ProductOrderService;
-import com.netflix.discovery.converters.Auto;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -34,14 +35,20 @@ public class ProductOrderController {
     @GetMapping("/save")
     @ResponseBody
     @HystrixCommand(fallbackMethod = "saveOrderFail")
-    public Object save(int userId, int productId){
+    public Object save(int userId, int productId, HttpServletRequest request){
+        String token = request.getHeader("token");
+        String cookie = request.getHeader("Cookie");
+        System.out.println("token:"+token);
+        System.out.println("cookie:"+cookie);
+
+        ProductOrder data = productOrderService.save(userId, productId);
         Map<String, Object> map = new HashMap<>();
         map.put("code", 0);
-        map.put("data", productOrderService.save(userId, productId));
+        map.put("data", data);
         return map;
     }
 
-    public Object saveOrderFail(int userId, int productId){
+    public Object saveOrderFail(int userId, int productId, HttpServletRequest request){
         String saveOrderKey = "save_order_" + productId;
         String sendValue = redisTemplate.opsForValue().get(saveOrderKey);
         //监控报警,异步通知

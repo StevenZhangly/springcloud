@@ -12,6 +12,7 @@
         <module>eureka-server</module>
         <module>product-server</module>
         <module>order-server</module>
+        <module>api-gateway</module>
     </modules>
 
 

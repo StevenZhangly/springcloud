@@ -29,3 +29,19 @@ feign:
         readTimeout: 3000
   hystrix:
     enabled: true
+
+#设置hystrix超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 3000
+
+#暴露所有的监控信息
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
