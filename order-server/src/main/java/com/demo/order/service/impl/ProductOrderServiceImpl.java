@@ -5,17 +5,15 @@ import com.demo.order.service.ProductClient;
 import com.demo.order.service.ProductOrderService;
 import com.demo.order.util.JsonUtils;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.netflix.discovery.converters.Auto;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -26,6 +24,8 @@ import java.util.UUID;
  **/
 @Service
 public class ProductOrderServiceImpl implements ProductOrderService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private RestTemplate restTemplate;
@@ -38,6 +38,7 @@ public class ProductOrderServiceImpl implements ProductOrderService {
 
     @Override
     public ProductOrder save(int userId, int productId) {
+        logger.info("下单接口，入参:{},{}", userId, productId);
 
         //方式一 使用Ribbon的RestTemplate方式
         //Map<String, Object> map = restTemplate.getForObject("http://product-server/api/v1/product/find?id="+productId, Map.class);

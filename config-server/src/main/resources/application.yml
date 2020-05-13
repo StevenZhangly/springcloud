@@ -1,0 +1,20 @@
+server:
+  port: 9100
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/StevenZhangly/config-server
+          username: 304875615@qq.com
+          password: zlywll19880604
+
+
+#\u6307\u5B9A\u6CE8\u518C\u4E2D\u5FC3\u5730\u5740
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

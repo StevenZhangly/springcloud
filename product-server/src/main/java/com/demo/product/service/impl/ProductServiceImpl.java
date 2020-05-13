@@ -3,11 +3,15 @@ package com.demo.product.service.impl;
 import com.demo.product.domain.Product;
 import com.demo.product.handle.ProductHandle;
 import com.demo.product.service.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName ProductServiceImpl
@@ -17,6 +21,8 @@ import java.util.*;
  **/
 @Service
 public class ProductServiceImpl implements ProductService {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private ProductHandle productHandle;
@@ -40,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(int id) {
-        System.out.println("查询商品:"+id+"的信息");
+        logger.info("查询商品:{}信息", id);
         return productMap.get(id);
     }
 }
