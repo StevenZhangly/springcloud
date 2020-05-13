@@ -11,6 +11,8 @@ spring:
           uri: https://github.com/StevenZhangly/config-server
           username: 304875615@qq.com
           password: zlywll19880604
+          default-label: master
+          timeout: 5
 
 
 #\u6307\u5B9A\u6CE8\u518C\u4E2D\u5FC3\u5730\u5740
