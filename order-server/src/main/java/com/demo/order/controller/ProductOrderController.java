@@ -4,12 +4,11 @@ import com.demo.order.domain.ProductOrder;
 import com.demo.order.service.ProductOrderService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -25,6 +24,8 @@ import java.util.concurrent.TimeUnit;
 @RestController
 @RequestMapping("/api/v1/order")
 public class ProductOrderController {
+
+    public static final Logger LOGGER = LoggerFactory.getLogger(ProductOrderController.class);
 
     @Autowired
     private ProductOrderService productOrderService;
@@ -67,5 +68,12 @@ public class ProductOrderController {
         map.put("code", -1);
         map.put("msg", "抢购人数太多，您被挤出来了，请稍后重试");
         return map;
+    }
+
+
+    @PostMapping("/save")
+    public void order(Integer productId, Integer saleCount){
+        LOGGER.info("下单请求，入参:{},{}", productId, saleCount);
+        productOrderService.order(productId, saleCount);
     }
 }

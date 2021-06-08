@@ -9,4 +9,6 @@ public interface ProductService {
     List<Product> productList();
 
     Product findById(int id);
+
+    void addProduct(Product product);
 }

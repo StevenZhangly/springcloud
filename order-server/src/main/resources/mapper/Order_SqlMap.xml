@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.demo.order.mapper.OrderMapper" >
+  <resultMap id="BaseResultMap" type="com.demo.order.domain.Order" >
+    <!--
+    @mbggenerated
+    -->
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="PRODUCT_ID" property="productId" jdbcType="INTEGER" />
+    <result column="SALE_COUNT" property="saleCount" jdbcType="INTEGER" />
+    <result column="TRANSACTION_ID" property="transactionId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    <!--
+    @mbggenerated
+    -->
+    ID, PRODUCT_ID, SALE_COUNT, TRANSACTION_ID, REMARK, CREATE_TIME, UPDATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    <!--
+    @mbggenerated
+    -->
+    select 
+    <include refid="Base_Column_List" />
+    from T_ORDER
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <!--
+    @mbggenerated
+    -->
+    delete from T_ORDER
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.demo.order.domain.Order" >
+    <!--
+    @mbggenerated
+    -->
+    insert into T_ORDER (ID, PRODUCT_ID, SALE_COUNT, TRANSACTION_ID,
+      REMARK, CREATE_TIME, UPDATE_TIME
+      )
+    values (#{id,jdbcType=INTEGER}, #{productId,jdbcType=INTEGER}, #{saleCount,jdbcType=INTEGER}, #{transactionId,jdbcType=VARCHAR},
+    #{remark,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.demo.order.domain.Order" >
+    <!--
+    @mbggenerated
+    -->
+    insert into T_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="productId != null" >
+        PRODUCT_ID,
+      </if>
+      <if test="saleCount != null" >
+        SALE_COUNT,
+      </if>
+      <if test="transactionId != null" >
+        TRANSACTION_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="saleCount != null" >
+        #{saleCount,jdbcType=INTEGER},
+      </if>
+      <if test="transactionId != null" >
+        #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.demo.order.domain.Order" >
+    <!--
+    @mbggenerated
+    -->
+    update T_ORDER
+    <set >
+      <if test="productId != null" >
+        PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      </if>
+      <if test="saleCount != null" >
+        SALE_COUNT = #{saleCount,jdbcType=INTEGER},
+      </if>
+      <if test="transactionId != null" >
+        TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.demo.order.domain.Order" >
+    <!--
+    @mbggenerated
+    -->
+    update T_ORDER
+    set PRODUCT_ID = #{productId,jdbcType=INTEGER},
+      SALE_COUNT = #{saleCount,jdbcType=INTEGER},
+      TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="selectOrderByTransactionId" resultType="int">
+    SELECT COUNT(1) FROM T_ORDER WHERE TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
+  </select>
+</mapper>

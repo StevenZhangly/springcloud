@@ -4,10 +4,9 @@ import com.demo.product.domain.Product;
 import com.demo.product.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 /**
  * @ClassName ProductController
@@ -25,13 +24,13 @@ public class ProductController {
     @Value("${server.port}")
     private String port;
 
-    @GetMapping("list")
+    @GetMapping("/list")
     @ResponseBody
     public Object list(){
      return productService.productList();
     }
 
-    @GetMapping("find")
+    @GetMapping("/find")
     @ResponseBody
     public Object findById(int id){
         /*try {
@@ -43,5 +42,12 @@ public class ProductController {
         result.setRemark("");
         result.setRemark("get result from :" + port);
         return result;
+    }
+
+    @PostMapping("/save")
+    public void saveProduct(@RequestBody Product product){
+        product.setCreateTime(new Date());
+        product.setUpdateTime(new Date());
+        productService.addProduct(product);
     }
 }

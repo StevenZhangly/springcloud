@@ -11,4 +11,7 @@ public interface ProductOrderService {
      * @return
      */
     ProductOrder save(int userId, int productId);
+
+
+    void order(int productId, int saleCount);
 }

@@ -1,35 +1,22 @@
-package com.demo.product.domain;
+package com.demo.order.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * @ClassName Product
- * @Description: TODO
- * @Author zly
- * @Date 2020/4/26
- **/
-public class Product implements Serializable {
-
+public class Order {
     /**
      * 主键ID
      */
     private Integer id;
 
     /**
-     * 名称
+     * 商品ID
      */
-    private String name;
+    private Integer productId;
 
     /**
-     * 金额
+     * 销售数量
      */
-    private Long price;
-
-    /**
-     * 库存
-     */
-    private Integer store;
+    private Integer saleCount;
 
     /**
      * 备注
@@ -45,6 +32,11 @@ public class Product implements Serializable {
      * 更新时间
      */
     private Date updateTime;
+
+    /**
+     * 消息事务ID
+     */
+    private String transactionId;
 
     /**
      * 获取 主键ID
@@ -65,57 +57,39 @@ public class Product implements Serializable {
     }
 
     /**
-     * 获取 名称
+     * 获取 商品ID
      *
-     * @return 名称
+     * @return 商品ID
      */
-    public String getName() {
-        return name;
+    public Integer getProductId() {
+        return productId;
     }
 
     /**
-     * 设置 名称
+     * 设置 商品ID
      *
-     * @param name 名称
+     * @param productId 商品ID
      */
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     /**
-     * 获取 金额
+     * 获取 销售数量
      *
-     * @return 金额
+     * @return 销售数量
      */
-    public Long getPrice() {
-        return price;
+    public Integer getSaleCount() {
+        return saleCount;
     }
 
     /**
-     * 设置 金额
+     * 设置 销售数量
      *
-     * @param price 金额
+     * @param saleCount 销售数量
      */
-    public void setPrice(Long price) {
-        this.price = price;
-    }
-
-    /**
-     * 获取 库存
-     *
-     * @return 库存
-     */
-    public Integer getStore() {
-        return store;
-    }
-
-    /**
-     * 设置 库存
-     *
-     * @param store 库存
-     */
-    public void setStore(Integer store) {
-        this.store = store;
+    public void setSaleCount(Integer saleCount) {
+        this.saleCount = saleCount;
     }
 
     /**
@@ -172,8 +146,16 @@ public class Product implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
+    }
+
     /**
-     *
+     * 
      */
     @Override
     public String toString() {
@@ -182,9 +164,8 @@ public class Product implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", price=").append(price);
-        sb.append(", store=").append(store);
+        sb.append(", productId=").append(productId);
+        sb.append(", saleCount=").append(saleCount);
         sb.append(", remark=").append(remark);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);

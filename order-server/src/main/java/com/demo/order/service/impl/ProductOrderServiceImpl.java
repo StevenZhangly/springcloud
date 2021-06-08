@@ -1,11 +1,15 @@
 package com.demo.order.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.demo.order.domain.Order;
 import com.demo.order.domain.ProductOrder;
+import com.demo.order.mq.MQService;
 import com.demo.order.service.ProductClient;
 import com.demo.order.service.ProductOrderService;
 import com.demo.order.util.JsonUtils;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.lang.StringUtils;
+import org.apache.rocketmq.common.message.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +40,9 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Autowired
     private ProductClient productClient;
 
+    @Autowired
+    private MQService mqService;
+
     @Override
     public ProductOrder save(int userId, int productId) {
         logger.info("下单接口，入参:{},{}", userId, productId);
@@ -65,4 +72,17 @@ public class ProductOrderServiceImpl implements ProductOrderService {
         }
         return productOrder;
     }
+
+    @Override
+    public void order(int productId, int saleCount){
+        Message message = new Message();
+        Order order = new Order();
+        order.setProductId(productId);
+        order.setSaleCount(saleCount);
+        message.setTopic("TopicTransaction");
+        message.setTags("order");
+        message.setBody(JSON.toJSONString(order).getBytes());
+        mqService.sendMessage(message);
+    }
+
 }
