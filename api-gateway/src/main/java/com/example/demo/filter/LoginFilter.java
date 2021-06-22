@@ -7,7 +7,6 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import static org.springframework.cloud.netflix.zuul.filters.support.FilterConstants.PRE_TYPE;
@@ -49,7 +48,7 @@ public class LoginFilter extends ZuulFilter {
         HttpServletRequest request = requestContext.getRequest();
         System.out.println(request.getRequestURI());
         System.out.println(request.getRequestURL());
-        if("/apigateway/order/api/v1/order/save".equalsIgnoreCase(request.getRequestURI())){
+        if(request.getRequestURI().indexOf("/product/find") < 0){
             return true;
         }
         return false;
@@ -75,5 +74,9 @@ public class LoginFilter extends ZuulFilter {
             requestContext.setResponseStatusCode(HttpStatus.UNAUTHORIZED.value());
         }
         return null;
+    }
+
+    public <E> E get(E t){
+        return t;
     }
 }
