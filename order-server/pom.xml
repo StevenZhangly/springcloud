@@ -12,7 +12,7 @@
     <artifactId>order-server</artifactId>
 
     <dependencies>
-        <!-- eureka-server -->
+        <!-- eureka-server 1-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
