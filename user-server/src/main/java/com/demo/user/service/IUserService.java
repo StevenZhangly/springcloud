@@ -28,4 +28,8 @@ public interface IUserService extends IService<User> {
      * @return
      */
     List<User> getUserList();
+
+    void saveUser(User user);
+
+    List<User> findByName(String name);
 }

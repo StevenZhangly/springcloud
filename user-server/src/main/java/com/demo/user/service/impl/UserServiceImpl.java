@@ -39,6 +39,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    public void saveUser(User user) {
+        userMapper.saveUser(user);
+    }
+
+    @Override
+    public List<User> findByName(String name) {
+        return userMapper.findByName(name);
+    }
+
+    @Override
     public boolean save(User entity) {
         //baseMapper.insert(entity);
         //userHandler.insertUser(entity);

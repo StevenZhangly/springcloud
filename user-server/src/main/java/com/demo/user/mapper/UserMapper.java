@@ -3,6 +3,8 @@ package com.demo.user.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.demo.user.entity.User;
 
+import java.util.List;
+
 /**
  * <p>
  * 用户表 Mapper 接口
@@ -14,4 +16,8 @@ import com.demo.user.entity.User;
 public interface UserMapper extends BaseMapper<User> {
 
     Integer insertUser(User model);
+
+    void saveUser(User model);
+
+    List<User> findByName(String name);
 }

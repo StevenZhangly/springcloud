@@ -2,8 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demo.user.mapper.UserMapper">
 
+    <resultMap id="baseResult" type="com.demo.user.entity.User">
+        <id column="ID" property="id"></id>
+        <id column="NAME" property="name"></id>
+        <id column="AGE" property="age"></id>
+    </resultMap>
+
     <insert id="insertUser" parameterType="com.demo.user.entity.User">
         INSERT INTO user (NAME, AGE ) VALUES (#{name},#{age})
     </insert>
 
+    <insert id="saveUser" parameterType="com.demo.user.entity.User">
+        INSERT INTO user (ID, NAME, AGE ) VALUES (#{id}, #{name},#{age})
+    </insert>
+
+    <select id="findByName" resultMap="baseResult">
+        select * from user where NAME = #{name}
+    </select>
 </mapper>
