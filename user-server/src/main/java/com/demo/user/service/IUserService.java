@@ -32,4 +32,8 @@ public interface IUserService extends IService<User> {
     void saveUser(User user);
 
     List<User> findByName(String name);
+
+    int batchInsert(List<User> users);
+
+    User getUserById(int id);
 }

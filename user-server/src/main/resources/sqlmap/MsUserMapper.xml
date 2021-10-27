@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.demo.user.mapper.UserMapper">
+<mapper namespace="com.demo.user.msmapper.MsUserMapper">
 
     <resultMap id="baseResult" type="com.demo.user.entity.User">
         <id column="ID" property="id"></id>
@@ -18,9 +18,5 @@
 
     <select id="findByName" resultMap="baseResult">
         select * from user where NAME = #{name}
-    </select>
-
-    <select id="getUserById" resultMap="baseResult">
-        select * from user where ID = #{id}
     </select>
 </mapper>

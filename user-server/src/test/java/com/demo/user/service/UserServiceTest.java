@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,4 +53,24 @@ public class UserServiceTest {
             System.out.println(JSON.toJSONString(users));
         }
     }
+
+    @Test
+    public void batchInsertTest(){
+        List<User> users = new ArrayList<>();
+        for (int i = 100; i <= 105; i++) {
+            User user = new User();
+            user.setId((long)i);
+            user.setName("zly"+i);
+            user.setAge(i);
+            users.add(user);
+        }
+        userService.batchInsert(users);
+    }
+
+    @Test
+    public void getUserByIdTest(){
+        User user = userService.getUserById(1);
+        System.out.println(JSON.toJSONString(user));
+    }
+
 }

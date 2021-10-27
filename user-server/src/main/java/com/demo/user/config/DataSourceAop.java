@@ -25,6 +25,11 @@ public class DataSourceAop {
 
     }
 
+    @Pointcut("@annotation(com.demo.user.config.MasterRouteOnly)")
+    public void masterReadOnlyPointcut(){
+
+    }
+
     @Before("readPointcut()")
     public void read(){
         DBContextHolder.slave();
@@ -32,6 +37,11 @@ public class DataSourceAop {
 
     @Before("writePointcut()")
     public void write(){
+        DBContextHolder.master();
+    }
+
+    @Before("masterReadOnlyPointcut()")
+    public void masterWriteOnly(){
         DBContextHolder.master();
     }
 }

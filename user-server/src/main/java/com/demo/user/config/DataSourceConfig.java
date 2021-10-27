@@ -1,6 +1,5 @@
 package com.demo.user.config;
 
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
@@ -38,9 +37,9 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public DataSource myRoutingDataSource(@Qualifier("masterDataSource") DataSource masterDataSource,
-                                          @Qualifier("slave1DataSource") DataSource slave1DataSource,
-                                          @Qualifier("slave2DataSource") DataSource slave2DataSource){
+    public DataSource myRoutingDataSource( DataSource masterDataSource,
+                                           DataSource slave1DataSource,
+                                           DataSource slave2DataSource){
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put(DBTypeEnum.MASTER, masterDataSource);
         targetDataSources.put(DBTypeEnum.SLAVE1, slave1DataSource);
