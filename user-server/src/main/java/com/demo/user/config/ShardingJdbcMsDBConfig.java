@@ -70,7 +70,6 @@ public class ShardingJdbcMsDBConfig {
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources("classpath:sqlmap/MsUserMapper.xml"));
         return sqlSessionFactoryBean.getObject();
     }
-
     @Bean
     public PlatformTransactionManager platformTransactionManager(DataSource shardingJdbcMsDataSource){
         return new DataSourceTransactionManager(shardingJdbcMsDataSource);
